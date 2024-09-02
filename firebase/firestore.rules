@@ -1,0 +1,72 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /Users/{document} {
+      allow create: if request.auth.uid == document;
+      allow read: if request.auth.uid == resource.data.uid;
+      allow write: if request.auth.uid == resource.data.uid;
+      allow delete: if false;
+    }
+
+    match /Commerce/{document} {
+      allow create: if request.auth.uid == request.resource.data.commerce_id;
+      allow read: if request.auth.uid == resource.data.commerce_id;
+      allow write: if request.auth.uid == resource.data.commerce_id;
+      allow delete: if false;
+    }
+
+    match /Commerce/{parent}/review/{document} {
+      allow create: if request.resource.data.user_id == /databases/$(database)/documents/Users/$(request.auth.uid);
+      allow read: if resource.data.user_id == /databases/$(database)/documents/Users/$(request.auth.uid);
+      allow write: if resource.data.user_id == /databases/$(database)/documents/Users/$(request.auth.uid);
+      allow delete: if false;
+    }
+
+    match /{path=**}/review/{document} {
+      allow read: if resource.data.user_id == /databases/$(database)/documents/Users/$(request.auth.uid);
+    }
+
+
+    match /Categories/{document} {
+      allow create: if request.auth.uid == request.resource.data.category_id;
+      allow read: if request.auth.uid == resource.data.category_id;
+      allow write: if request.auth.uid == resource.data.category_id;
+      allow delete: if false;
+    }
+
+    match /logs/{document} {
+      allow create: if request.resource.data.user_id == /databases/$(database)/documents/Users/$(request.auth.uid);
+      allow read: if resource.data.user_id == /databases/$(database)/documents/Users/$(request.auth.uid);
+      allow write: if resource.data.user_id == /databases/$(database)/documents/Users/$(request.auth.uid);
+      allow delete: if false;
+    }
+
+    match /Users/{parent}/notifications/{document} {
+      allow create: if request.auth.uid == parent;
+      allow read: if request.auth.uid == parent;
+      allow write: if request.auth.uid == parent;
+      allow delete: if request.auth.uid == parent;
+    }
+
+    match /Users/{parent}/favorites/{document} {
+      allow create: if request.auth.uid == parent;
+      allow read: if request.auth.uid == parent;
+      allow write: if request.auth.uid == parent;
+      allow delete: if request.auth.uid == parent;
+    }
+
+    match /chat_messages/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /chats/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+  }
+}
