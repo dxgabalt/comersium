@@ -1,0 +1,23 @@
+# Flutter/Dart related
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+build/
+# Android
+.Android/
+# iOS
+.ios/
+# VS Code
+.vscode/
+# Miscellaneous
+*.iml
+*.log
+*.tmp
+*.swp
+*.lock
+*.DS_Store
+*.idea/
+*.vscode/
+.idea/

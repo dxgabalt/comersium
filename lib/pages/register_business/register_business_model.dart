@@ -108,6 +108,34 @@ class RegisterBusinessModel extends FlutterFlowModel<RegisterBusinessWidget> {
     return null;
   }
 
+  // State field(s) for tags widget.
+  FocusNode? tagsFocusNode;
+  TextEditingController? tagsTextController;
+  String? Function(BuildContext, String?)? tagsTextControllerValidator;
+  String? _tagsTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return FFLocalizations.of(context).getText(
+        'telfb8y9' /* Field is required */,
+      );
+    }
+
+    return null;
+  }
+
+  // State field(s) for videoURL widget.
+  FocusNode? videoURLFocusNode;
+  TextEditingController? videoURLTextController;
+  String? Function(BuildContext, String?)? videoURLTextControllerValidator;
+  String? _videoURLTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return FFLocalizations.of(context).getText(
+        'telfb8y9' /* Field is required */,
+      );
+    }
+
+    return null;
+  }
+
   // State field(s) for description widget.
   FocusNode? descriptionFocusNode;
   TextEditingController? descriptionTextController;
@@ -172,6 +200,8 @@ class RegisterBusinessModel extends FlutterFlowModel<RegisterBusinessWidget> {
     emailTextControllerValidator = _emailTextControllerValidator;
     phoneNumberTextControllerValidator = _phoneNumberTextControllerValidator;
     addressTextControllerValidator = _addressTextControllerValidator;
+    tagsTextControllerValidator = _tagsTextControllerValidator;
+    videoURLTextControllerValidator = _videoURLTextControllerValidator;
     descriptionTextControllerValidator = _descriptionTextControllerValidator;
     facebookTextController1Validator = _facebookTextController1Validator;
     facebookTextController2Validator = _facebookTextController2Validator;
@@ -205,5 +235,8 @@ class RegisterBusinessModel extends FlutterFlowModel<RegisterBusinessWidget> {
 
     facebookFocusNode2?.dispose();
     facebookTextController2?.dispose();
+
+    videoURLFocusNode?.dispose();
+    videoURLTextController?.dispose();
   }
 }

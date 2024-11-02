@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'register_account_model.dart';
 export 'register_account_model.dart';
 
@@ -74,8 +73,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                     ),
                   ),
                   child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 40.0, 0.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -149,8 +148,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 12.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 12.0, 0.0, 0.0),
                                         child: TextFormField(
                                           controller:
                                               _model.emailAddressTextController,
@@ -225,7 +224,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .secondary,
                                             contentPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional
+                                                    .fromSTEB(
                                                     20.0, 24.0, 20.0, 24.0),
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -243,8 +243,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 12.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 12.0, 0.0, 0.0),
                                         child: TextFormField(
                                           controller:
                                               _model.usernameTextController,
@@ -307,7 +307,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .secondary,
                                             contentPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional
+                                                    .fromSTEB(
                                                     20.0, 24.0, 20.0, 24.0),
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -325,8 +326,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 12.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 12.0, 0.0, 0.0),
                                         child: TextFormField(
                                           controller:
                                               _model.phoneNumberTextController,
@@ -400,7 +401,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .secondary,
                                             contentPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional
+                                                    .fromSTEB(
                                                     20.0, 24.0, 20.0, 24.0),
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -419,8 +421,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 12.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 12.0, 0.0, 0.0),
                                         child: TextFormField(
                                           controller: _model
                                               .passwordCreateTextController,
@@ -491,7 +493,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .secondary,
                                             contentPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional
+                                                    .fromSTEB(
                                                     20.0, 24.0, 20.0, 24.0),
                                             suffixIcon: InkWell(
                                               onTap: () => setState(
@@ -529,8 +532,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 12.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 12.0, 0.0, 0.0),
                                         child: TextFormField(
                                           controller: _model
                                               .passwordConfirmTextController,
@@ -604,7 +607,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .secondary,
                                             contentPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional
+                                                    .fromSTEB(
                                                     20.0, 24.0, 20.0, 24.0),
                                             suffixIcon: InkWell(
                                               onTap: () => setState(
@@ -645,10 +649,12 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  alignment:
+                                      const AlignmentDirectional(0.0, 0.0),
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 24.0, 0.0, 24.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 24.0, 0.0, 24.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         if (_model.formKey.currentState ==
@@ -703,11 +709,10 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                       options: FFButtonOptions(
                                         width: 198.0,
                                         height: 50.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
-                                        iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                        iconPadding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context)
                                             .alternate,
                                         textStyle: FlutterFlowTheme.of(context)
@@ -785,46 +790,6 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                   ],
                                 ),
                               ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 24.0, 0.0, 0.0),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              context.pushNamed('LogoWall');
-                            },
-                            text: FFLocalizations.of(context).getText(
-                              '3ugmx2zp' /* Registrate con google */,
-                            ),
-                            icon: FaIcon(
-                              FontAwesomeIcons.google,
-                              color: FlutterFlowTheme.of(context).error,
-                              size: 15.0,
-                            ),
-                            options: FFButtonOptions(
-                              width: 230.0,
-                              height: 50.0,
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context).secondary,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    fontFamily: 'Lexend',
-                                    color: FlutterFlowTheme.of(context)
-                                        .darkBackground,
-                                    letterSpacing: 0.0,
-                                  ),
-                              elevation: 3.0,
-                              borderSide: const BorderSide(
-                                color: Colors.transparent,
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
                         ),

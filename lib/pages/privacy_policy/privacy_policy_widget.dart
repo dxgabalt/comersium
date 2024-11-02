@@ -35,9 +35,9 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      backgroundColor: FlutterFlowTheme.of(context).primary,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).alternate,
         automaticallyImplyLeading: false,
         leading: InkWell(
           splashColor: Colors.transparent,
@@ -71,7 +71,8 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -90,7 +91,8 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
               ),
             ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 44.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 44.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -110,7 +112,8 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
               ),
             ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 44.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 44.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [

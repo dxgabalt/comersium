@@ -100,6 +100,8 @@ class ChatsRecord extends FirestoreRecord {
   bool operator ==(other) =>
       other is ChatsRecord &&
       reference.path.hashCode == other.reference.path.hashCode;
+
+  static fromDocument(DocumentReference<Object?> reference) {}
 }
 
 Map<String, dynamic> createChatsRecordData({

@@ -36,6 +36,11 @@ class CommerceRecord extends FirestoreRecord {
   String get address => _address ?? '';
   bool hasAddress() => _address != null;
 
+  // "videoUrl" field.
+  String? _videoURL;
+  String get videoURL => _videoURL ?? '';
+  bool hasVideoURL() => _videoURL != null;
+
   // "description" field.
   String? _description;
   String get description => _description ?? '';
@@ -76,6 +81,11 @@ class CommerceRecord extends FirestoreRecord {
   LatLng? get ubication => _ubication;
   bool hasUbication() => _ubication != null;
 
+  // "tags" field.
+  List<String>? _tags;
+  List<String> get tags => _tags ?? const [];
+  bool hasTags() => _tags != null;
+
   // "cover_photo" field.
   String? _coverPhoto;
   String get coverPhoto => _coverPhoto ?? '';
@@ -111,6 +121,7 @@ class CommerceRecord extends FirestoreRecord {
     _reviews = snapshotData['reviews'] as DocumentReference?;
     _createdAt = snapshotData['created_at'] as DateTime?;
     _serviceImages = getDataList(snapshotData['service_images']);
+    _videoURL = snapshotData['videoURL'] as String?;
     _facebook = snapshotData['facebook'] as String?;
     _instagram = snapshotData['instagram'] as String?;
     _ubication = snapshotData['ubication'] as LatLng?;
@@ -119,6 +130,9 @@ class CommerceRecord extends FirestoreRecord {
     _category = snapshotData['category'] as String?;
     _color = getSchemaColor(snapshotData['color']);
     _userRef = snapshotData['userRef'] as DocumentReference?;
+    _tags = (snapshotData['tags'] as List<dynamic>?)
+        ?.map((e) => e as String)
+        .toList();
   }
 
   static CollectionReference get collection =>
@@ -172,6 +186,8 @@ Map<String, dynamic> createCommerceRecordData({
   String? category,
   Color? color,
   DocumentReference? userRef,
+  String? videoURL,
+  List<String>? tags,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -191,6 +207,8 @@ Map<String, dynamic> createCommerceRecordData({
       'category': category,
       'color': color,
       'userRef': userRef,
+      'videoURL': videoURL,
+      'tags': tags,
     }.withoutNulls,
   );
 
@@ -219,7 +237,9 @@ class CommerceRecordDocumentEquality implements Equality<CommerceRecord> {
         e1?.profilePhoto == e2?.profilePhoto &&
         e1?.category == e2?.category &&
         e1?.color == e2?.color &&
-        e1?.userRef == e2?.userRef;
+        e1?.userRef == e2?.userRef &&
+        e1?.videoURL == e2?.videoURL &&
+        listEquality.equals(e1?.tags, e2?.tags);
   }
 
   @override
@@ -240,7 +260,9 @@ class CommerceRecordDocumentEquality implements Equality<CommerceRecord> {
         e?.profilePhoto,
         e?.category,
         e?.color,
-        e?.userRef
+        e?.userRef,
+        e?.videoURL,
+        e?.tags,
       ]);
 
   @override

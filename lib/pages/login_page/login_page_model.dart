@@ -23,10 +23,20 @@ class LoginPageModel extends FlutterFlowModel<LoginPageWidget> {
 
   @override
   void dispose() {
-    emailAddressLoginFocusNode?.dispose();
-    emailAddressLoginTextController?.dispose();
+    // Desvincula los FocusNodes antes de eliminarlos
+    if (emailAddressLoginFocusNode?.hasFocus ?? false) {
+      emailAddressLoginFocusNode?.unfocus();
+    }
+    if (passwordLoginFocusNode?.hasFocus ?? false) {
+      passwordLoginFocusNode?.unfocus();
+    }
 
+    // Luego elimina los FocusNodes
+    emailAddressLoginFocusNode?.dispose();
     passwordLoginFocusNode?.dispose();
+
+    // Elimina los TextEditingControllers
+    emailAddressLoginTextController?.dispose();
     passwordLoginTextController?.dispose();
   }
 }

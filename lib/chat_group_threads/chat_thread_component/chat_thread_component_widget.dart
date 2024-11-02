@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/chat_group_threads/chat_thread/chat_thread_widget.dart';
 import '/chat_group_threads/empty_state_simple/empty_state_simple_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -8,7 +7,6 @@ import '/flutter_flow/flutter_flow_media_display.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
-import '/flutter_flow/upload_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -61,7 +59,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
       width: double.infinity,
       height: double.infinity,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).primaryBackground,
+        color: FlutterFlowTheme.of(context).background,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -125,8 +123,8 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                       color: FlutterFlowTheme.of(context).primary,
                       size: 90.0,
                     ),
-                    title: 'No Messages',
-                    body: 'You have not sent any messages in this chat yet.',
+                    title: 'No hay mensajes',
+                    body: 'Envía un mensaje para comenzar la conversación.',
                   );
                 }
 
@@ -168,7 +166,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
+              color: FlutterFlowTheme.of(context).alternate,
               boxShadow: const [
                 BoxShadow(
                   blurRadius: 3.0,
@@ -224,15 +222,16 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: const AlignmentDirectional(-1.0, -1.0),
+                                  alignment:
+                                      const AlignmentDirectional(-1.0, -1.0),
                                   child: FlutterFlowIconButton(
                                     borderColor:
                                         FlutterFlowTheme.of(context).error,
                                     borderRadius: 20.0,
                                     borderWidth: 2.0,
                                     buttonSize: 40.0,
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
+                                    fillColor:
+                                        FlutterFlowTheme.of(context).secondary,
                                     icon: Icon(
                                       Icons.delete_outline_rounded,
                                       color: FlutterFlowTheme.of(context).error,
@@ -269,91 +268,6 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        FlutterFlowIconButton(
-                          borderColor: FlutterFlowTheme.of(context).alternate,
-                          borderRadius: 60.0,
-                          borderWidth: 1.0,
-                          buttonSize: 40.0,
-                          fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          icon: Icon(
-                            Icons.add_rounded,
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            size: 24.0,
-                          ),
-                          onPressed: () async {
-                            final selectedMedia =
-                                await selectMediaWithSourceBottomSheet(
-                              context: context,
-                              allowPhoto: true,
-                              allowVideo: true,
-                              backgroundColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              textColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              pickerFontFamily: 'Outfit',
-                            );
-                            if (selectedMedia != null &&
-                                selectedMedia.every((m) => validateFileFormat(
-                                    m.storagePath, context))) {
-                              setState(() => _model.isDataUploading = true);
-                              var selectedUploadedFiles = <FFUploadedFile>[];
-
-                              var downloadUrls = <String>[];
-                              try {
-                                showUploadMessage(
-                                  context,
-                                  'Uploading file...',
-                                  showLoading: true,
-                                );
-                                selectedUploadedFiles = selectedMedia
-                                    .map((m) => FFUploadedFile(
-                                          name: m.storagePath.split('/').last,
-                                          bytes: m.bytes,
-                                          height: m.dimensions?.height,
-                                          width: m.dimensions?.width,
-                                          blurHash: m.blurHash,
-                                        ))
-                                    .toList();
-
-                                downloadUrls = (await Future.wait(
-                                  selectedMedia.map(
-                                    (m) async => await uploadData(
-                                        m.storagePath, m.bytes),
-                                  ),
-                                ))
-                                    .where((u) => u != null)
-                                    .map((u) => u!)
-                                    .toList();
-                              } finally {
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
-                                _model.isDataUploading = false;
-                              }
-                              if (selectedUploadedFiles.length ==
-                                      selectedMedia.length &&
-                                  downloadUrls.length == selectedMedia.length) {
-                                setState(() {
-                                  _model.uploadedLocalFile =
-                                      selectedUploadedFiles.first;
-                                  _model.uploadedFileUrl = downloadUrls.first;
-                                });
-                                showUploadMessage(context, 'Success!');
-                              } else {
-                                setState(() {});
-                                showUploadMessage(
-                                    context, 'Failed to upload data');
-                                return;
-                              }
-                            }
-
-                            if (_model.uploadedFileUrl != '') {
-                              _model
-                                  .addToImagesUploaded(_model.uploadedFileUrl);
-                              setState(() {});
-                            }
-                          },
-                        ),
                         Expanded(
                           child: Stack(
                             children: [
@@ -387,8 +301,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                           .getDocumentFromData(
                                               createChatMessagesRecordData(
                                                 user: currentUserReference,
-                                                chat:
-                                                    widget.chatRef?.reference,
+                                                chat: widget.chatRef?.reference,
                                                 text:
                                                     _model.textController.text,
                                                 timestamp: getCurrentTimestamp,
@@ -470,7 +383,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
-                                              .alternate,
+                                              .accent3,
                                           width: 1.0,
                                         ),
                                         borderRadius:
@@ -528,17 +441,17 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 4.0, 6.0, 4.0),
                                   child: FlutterFlowIconButton(
-                                    borderColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).secondary,
                                     borderRadius: 20.0,
                                     borderWidth: 1.0,
                                     buttonSize: 40.0,
                                     fillColor:
-                                        FlutterFlowTheme.of(context).accent1,
+                                        FlutterFlowTheme.of(context).secondary,
                                     icon: Icon(
                                       Icons.send_rounded,
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
                                       size: 20.0,
                                     ),
                                     onPressed: () async {
@@ -568,8 +481,8 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                             .getDocumentFromData(
                                                 createChatMessagesRecordData(
                                                   user: currentUserReference,
-                                                  chat: widget
-                                                      .chatRef?.reference,
+                                                  chat:
+                                                      widget.chatRef?.reference,
                                                   text: _model
                                                       .textController.text,
                                                   timestamp:
@@ -587,8 +500,8 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                             currentUserReference!);
                                         // updateChatDocument
 
-                                        firestoreBatch.update(
-                                            widget.chatRef!.reference, {
+                                        firestoreBatch
+                                            .update(widget.chatRef!.reference, {
                                           ...createChatsRecordData(
                                             lastMessageTime:
                                                 getCurrentTimestamp,

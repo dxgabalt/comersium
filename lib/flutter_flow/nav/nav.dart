@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:comersium/pages/interest/interests_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
@@ -70,17 +71,19 @@ class AppStateNotifier extends ChangeNotifier {
 }
 
 GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
-      initialLocation: '/',
+      initialLocation: '/loginPage',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const NavBarPage() : const OnboardingWidget(),
+      errorBuilder: (context, state) => appStateNotifier.loggedIn
+          ? const NavBarPage()
+          : const OnboardingWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? const NavBarPage() : const OnboardingWidget(),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? const NavBarPage()
+              : const OnboardingWidget(),
         ),
         FFRoute(
           name: 'loginPage',
@@ -130,6 +133,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : const LogoWallWidget(),
         ),
         FFRoute(
+          name: 'Interests',
+          path: '/Interests',
+          builder: (context, params) => const InterestsWidget(),
+        ),
+        FFRoute(
           name: 'searchComersiums',
           path: '/searchComersiums',
           builder: (context, params) => params.isEmpty
@@ -175,7 +183,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => Chat2DetailsWidget(
             chatRef: params.getParam(
               'chatRef',
-              ParamType.Document,
+              ParamType.Document, // Cambia esto a ParamType.Document
             ),
           ),
         ),
@@ -444,7 +452,8 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() =>
+      const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

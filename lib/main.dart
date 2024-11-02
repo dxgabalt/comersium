@@ -1,3 +1,6 @@
+import 'package:comersium/pages/notification/blocs/notifications/notifications_bloc.dart';
+import 'package:comersium/pages/notification/notifications_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -21,10 +24,17 @@ void main() async {
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => appState,
-    child: const MyApp(),
-  ));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => NotificationsBloc()),
+      ],
+      child: ChangeNotifierProvider(
+        create: (context) => appState,
+        child: const MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -63,7 +73,10 @@ class _MyAppState extends State<MyApp> {
     jwtTokenStream.listen((_) {});
     Future.delayed(
       const Duration(milliseconds: 1000),
-      () => _appStateNotifier.stopShowingSplashImage(),
+      () {
+        print('Splash screen is done');
+        _appStateNotifier.stopShowingSplashImage();
+      },
     );
   }
 
@@ -135,8 +148,10 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'LogoWall': const LogoWallWidget(),
+      'NotificationsPage': const NotificationsWidget(),
       'searchComersiums': const SearchComersiumsWidget(),
+      'LogoWall': const LogoWallWidget(),
+      'chat_2_main': const Chat2MainWidget(),
       'SettingsPage': const SettingsPageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
@@ -158,13 +173,13 @@ class _NavBarPageState extends State<NavBarPage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: const Icon(
-              Icons.home_outlined,
+              Icons.notifications_none,
               size: 24.0,
             ),
             label: FFLocalizations.of(context).getText(
-              'd2ya5nyy' /* Inicio */,
+              '0v5z1z1v' /* Notificaciones */,
             ),
-            tooltip: '',
+            tooltip: 'Notificaciones',
           ),
           BottomNavigationBarItem(
             icon: const Icon(
@@ -174,7 +189,27 @@ class _NavBarPageState extends State<NavBarPage> {
             label: FFLocalizations.of(context).getText(
               'sr2ijvdv' /* Buscar */,
             ),
-            tooltip: '',
+            tooltip: 'Buscar',
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(
+              Icons.home_outlined,
+              size: 24.0,
+            ),
+            label: FFLocalizations.of(context).getText(
+              'd2ya5nyy' /* Inicio */,
+            ),
+            tooltip: 'Inicio',
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(
+              Icons.chat,
+              size: 24.0,
+            ),
+            label: FFLocalizations.of(context).getText(
+              '0v5z1z2v' /* Mensajeria */,
+            ),
+            tooltip: 'Chats',
           ),
           BottomNavigationBarItem(
             icon: const Icon(
@@ -184,7 +219,7 @@ class _NavBarPageState extends State<NavBarPage> {
             label: FFLocalizations.of(context).getText(
               '6yjtviwi' /* Ajustes */,
             ),
-            tooltip: '',
+            tooltip: 'Ajustes',
           )
         ],
       ),

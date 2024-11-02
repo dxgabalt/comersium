@@ -26,6 +26,8 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  List<String> keywords = [];
+
   @override
   void initState() {
     super.initState();
@@ -43,11 +45,17 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
     _model.emailTextController ??= TextEditingController();
     _model.emailFocusNode ??= FocusNode();
 
+    _model.videoURLTextController ??= TextEditingController();
+    _model.videoURLFocusNode ??= FocusNode();
+
     _model.phoneNumberTextController ??= TextEditingController();
     _model.phoneNumberFocusNode ??= FocusNode();
 
     _model.addressTextController ??= TextEditingController();
     _model.addressFocusNode ??= FocusNode();
+
+    _model.tagsTextController ??= TextEditingController();
+    _model.tagsFocusNode ??= FocusNode();
 
     _model.descriptionTextController ??= TextEditingController();
     _model.descriptionFocusNode ??= FocusNode();
@@ -66,6 +74,24 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  // Método para agregar una palabra clave a la lista
+  void addKeyword(String keyword) {
+    if (keyword.isNotEmpty && !keywords.contains(keyword)) {
+      setState(() {
+        keywords.add(keyword);
+      });
+      _model.tagsTextController
+          ?.clear(); // Limpiar el campo de entrada después de agregar la palabra clave
+    }
+  }
+
+  // Método para eliminar una palabra clave de la lista
+  void removeKeyword(String keyword) {
+    setState(() {
+      keywords.remove(keyword);
+    });
   }
 
   @override
@@ -103,8 +129,8 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 24.0, 0.0, 0.0),
                       child: Text(
                         FFLocalizations.of(context).getText(
                           'j5ri69ky' /* Ingresa todos los datos de tu ... */,
@@ -118,8 +144,8 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          12.0, 0.0, 12.0, 0.0),
                       child: Form(
                         key: _model.formKey,
                         autovalidateMode: AutovalidateMode.disabled,
@@ -687,6 +713,62 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 12.0, 0.0, 0.0),
                               child: TextFormField(
+                                controller: _model.videoURLTextController,
+                                focusNode: _model.videoURLFocusNode,
+                                textInputAction: TextInputAction.next,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelText: 'Video Link',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lexend',
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        letterSpacing: 0.0,
+                                      ),
+                                  hintText: 'Link a su video promocional',
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  filled: true,
+                                  fillColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                  prefixIcon: Icon(
+                                    Icons.video_collection,
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                  ),
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lexend',
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      letterSpacing: 0.0,
+                                    ),
+                                keyboardType: TextInputType.url,
+                                validator: _model
+                                    .videoURLTextControllerValidator
+                                    .asValidator(context),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 12.0, 0.0, 0.0),
+                              child: TextFormField(
                                 controller: _model.phoneNumberTextController,
                                 focusNode: _model.phoneNumberFocusNode,
                                 textInputAction: TextInputAction.next,
@@ -843,7 +925,7 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                           .alternate,
                                       letterSpacing: 0.0,
                                     ),
-                                keyboardType: TextInputType.phone,
+                                keyboardType: TextInputType.text,
                                 validator: _model.addressTextControllerValidator
                                     .asValidator(context),
                               ),
@@ -925,11 +1007,78 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                           .alternate,
                                       letterSpacing: 0.0,
                                     ),
-                                keyboardType: TextInputType.phone,
+                                keyboardType: TextInputType.text,
                                 validator: _model
                                     .descriptionTextControllerValidator
                                     .asValidator(context),
                               ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 12.0, 0.0, 0.0),
+                              child: TextFormField(
+                                controller: _model.tagsTextController,
+                                focusNode: _model.tagsFocusNode,
+                                textInputAction: TextInputAction.done,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelText: 'Palabras Clave',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lexend',
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        letterSpacing: 0.0,
+                                      ),
+                                  hintText: 'Escribe una palabra clave...',
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  filled: true,
+                                  fillColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                  prefixIcon: Icon(
+                                    Icons.label,
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                  ),
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lexend',
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      letterSpacing: 0.0,
+                                    ),
+                                onFieldSubmitted: (value) => addKeyword(value),
+                              ),
+                            ),
+                            const SizedBox(height: 16.0),
+                            // Mostrar las palabras clave agregadas como badges
+                            Wrap(
+                              spacing: 8.0,
+                              runSpacing: 4.0,
+                              children: List.generate(keywords.length, (index) {
+                                final keyword = keywords[index];
+                                return Chip(
+                                  label: Text(keyword),
+                                  deleteIcon: const Icon(Icons.close),
+                                  onDeleted: () => removeKeyword(keyword),
+                                );
+                              }),
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
@@ -976,8 +1125,9 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                   height: 40.0,
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).secondary,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -1061,8 +1211,9 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                     borderColor: Colors.transparent,
                                     borderWidth: 2.0,
                                     borderRadius: 8.0,
-                                    margin: const EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 4.0, 16.0, 4.0),
+                                    margin:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 4.0, 16.0, 4.0),
                                     hidesUnderline: true,
                                     isOverButton: true,
                                     isSearchable: false,
@@ -1076,11 +1227,11 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                   0.0, 0.0, 0.0, 24.0),
                               child: FlutterFlowPlacePicker(
                                 iOSGoogleMapsApiKey:
-                                    'AIzaSyCpggs5J280C0EsgV03k1IoGqku63aplys',
+                                    'AIzaSyDMxDGZHZmY89uyAbPUJ8RG8N9nUVEdKMY',
                                 androidGoogleMapsApiKey:
-                                    'AIzaSyCpggs5J280C0EsgV03k1IoGqku63aplys',
+                                    'AIzaSyDMxDGZHZmY89uyAbPUJ8RG8N9nUVEdKMY',
                                 webGoogleMapsApiKey:
-                                    'AIzaSyCpggs5J280C0EsgV03k1IoGqku63aplys',
+                                    'AIzaSyDMxDGZHZmY89uyAbPUJ8RG8N9nUVEdKMY',
                                 onSelect: (place) async {
                                   setState(
                                       () => _model.placePickerValue = place);
@@ -1149,7 +1300,8 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Align(
-                                    alignment: const AlignmentDirectional(-1.0, 0.0),
+                                    alignment:
+                                        const AlignmentDirectional(-1.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
                                         'ao8ikn4f' /* Facebook */,
@@ -1163,8 +1315,9 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 12.0, 0.0, 12.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 12.0, 0.0, 12.0),
                                     child: TextFormField(
                                       controller:
                                           _model.facebookTextController1,
@@ -1230,7 +1383,8 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                         fillColor: FlutterFlowTheme.of(context)
                                             .secondary,
                                         contentPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
+                                            const EdgeInsetsDirectional
+                                                .fromSTEB(
                                                 20.0, 24.0, 20.0, 24.0),
                                       ),
                                       style: FlutterFlowTheme.of(context)
@@ -1241,7 +1395,7 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                                 .alternate,
                                             letterSpacing: 0.0,
                                           ),
-                                      keyboardType: TextInputType.phone,
+                                      keyboardType: TextInputType.text,
                                       validator: _model
                                           .facebookTextController1Validator
                                           .asValidator(context),
@@ -1279,8 +1433,9 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 12.0, 0.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 12.0, 0.0, 0.0),
                                       child: TextFormField(
                                         controller:
                                             _model.facebookTextController2,
@@ -1350,7 +1505,8 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .secondary,
                                           contentPadding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional
+                                                  .fromSTEB(
                                                   20.0, 24.0, 20.0, 24.0),
                                         ),
                                         style: FlutterFlowTheme.of(context)
@@ -1362,7 +1518,7 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                                       .alternate,
                                               letterSpacing: 0.0,
                                             ),
-                                        keyboardType: TextInputType.phone,
+                                        keyboardType: TextInputType.text,
                                         validator: _model
                                             .facebookTextController2Validator
                                             .asValidator(context),
@@ -1408,8 +1564,9 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 15.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 15.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
                                           final selectedMedia =
@@ -1485,12 +1642,11 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                         options: FFButtonOptions(
                                           width: double.infinity,
                                           height: 40.0,
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 0.0, 24.0, 0.0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(24.0, 0.0, 24.0, 0.0),
                                           iconPadding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
+                                              const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
                                               .secondary,
                                           textStyle: FlutterFlowTheme.of(
@@ -1589,6 +1745,8 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                       .doc(user.uid)
                                       .update(createUsersRecordData(
                                         role: 'enterprise',
+                                        displayName:
+                                            _model.nameTextController.text,
                                       ));
 
                                   await CommerceRecord.collection.doc().set({
@@ -1609,6 +1767,9 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                       category: _model.categorysValue,
                                       color: _model.colorPicked,
                                       profilePhoto: _model.uploadedFileUrl1,
+                                      videoURL:
+                                          _model.videoURLTextController.text,
+                                      tags: keywords,
                                       coverPhoto: _model.uploadedFileUrl2,
                                       userRef: currentUserReference,
                                     ),
@@ -1623,7 +1784,7 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                   });
 
                                   context.pushNamedAuth(
-                                      'loginPage', context.mounted);
+                                      'LogoWall', context.mounted);
                                 },
                                 text: FFLocalizations.of(context).getText(
                                   '9w4i4sgv' /* Registrar */,
@@ -1633,8 +1794,9 @@ class _RegisterBusinessWidgetState extends State<RegisterBusinessWidget> {
                                   height: 40.0,
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).alternate,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall

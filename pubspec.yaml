@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -21,19 +21,20 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-  flutter_localizations:
-    sdk: flutter
+  animations: ^2.0.5
   auto_size_text: 3.0.0
+  bloc: ^8.1.4
   cached_network_image: 3.3.1
+  carousel_slider: ^5.0.0
   chewie: 1.8.1
   cloud_firestore: 4.17.3
   cloud_firestore_platform_interface: 6.2.3
   cloud_firestore_web: 3.12.3
   collection: 1.18.0
+  cupertino_icons: ^1.0.0
   dropdown_button2: 2.3.9
   easy_debounce: 2.0.1
+  equatable: ^2.0.5
   file_picker: 8.0.3
   firebase_auth: 4.19.5
   firebase_auth_platform_interface: 7.2.6
@@ -41,22 +42,29 @@ dependencies:
   firebase_core: 2.31.0
   firebase_core_platform_interface: 5.0.0
   firebase_core_web: 2.17.0
+  firebase_messaging: 14.9.2
   firebase_performance: 0.9.4+5
   firebase_performance_platform_interface: 0.1.4+33
   firebase_performance_web: 0.1.6+5
   firebase_storage: 11.7.5
   firebase_storage_platform_interface: 5.1.20
   firebase_storage_web: 3.9.5
+  flutter:
+    sdk: flutter
   flutter_animate: 4.5.0
+  flutter_bloc: ^8.1.6
   flutter_cache_manager: 3.3.1
   flutter_facebook_auth: 4.0.0
-  flutter_google_places: 
+  flutter_google_places:
     git:
       url: https://github.com/ShehanYjoz/flutter_google_places.git
+  flutter_localizations:
+    sdk: flutter
   flutter_plugin_android_lifecycle: 2.0.20
   flutter_rating_bar: 4.0.1
   flutter_spinkit: 5.2.0
-  flutterflow_colorpicker: 
+  flutter_staggered_animations: ^1.0.0
+  flutterflow_colorpicker:
     git:
       url: https://github.com/FlutterFlow/flutterflow_colorpicker.git
       ref: v0.0.1+1
@@ -116,12 +124,7 @@ dependencies:
   video_player_avfoundation: 2.6.1
   video_player_platform_interface: 6.2.2
   video_player_web: 2.3.1
-  animations: ^2.0.5
-  flutter_staggered_animations: ^1.0.0
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
+  youtube_player_flutter: ^8.0.0
 
 dependency_overrides:
   http: 1.2.1
@@ -133,29 +136,22 @@ dependency_overrides:
 dev_dependencies:
   flutter_launcher_icons: 0.13.1
   flutter_lints: 4.0.0
-  image: 4.0.17
-  lints: 4.0.0
 
   flutter_test:
     sdk: flutter
-
+  image: 4.0.17
+  lints: 4.0.0
 
 flutter_launcher_icons:
-  android: 'launcher_icon'
+  android: "launcher_icon"
   ios: true
-  web:
-    generate: true
-  image_path: 'assets/images/app_launcher_icon.png'
-  adaptive_icon_background: '#5b6ad8'
-  adaptive_icon_foreground: 'assets/images/adaptive_foreground_icon.png'
-
+  image_path: "assets/images/logo.jpg"
+  min_sdk_android: 23
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -170,14 +166,10 @@ flutter:
     - assets/lottie_animations/
     - assets/rive_animations/
     - assets/pdfs/
-
-  
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
@@ -197,4 +189,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-

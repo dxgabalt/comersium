@@ -6,8 +6,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/random_data_util.dart' as random_data;
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -31,6 +29,7 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
   late Chat2InviteUsersModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  DocumentReference? selectedUser;
 
   @override
   void initState() {
@@ -41,11 +40,9 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (widget.chatRef != null) {
         // addChatUsers_ToList
-
         setState(() {});
       } else {
         // addUser_ToList
-
         setState(() {});
       }
     });
@@ -56,7 +53,6 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
@@ -66,9 +62,9 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).accent3,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+          backgroundColor: FlutterFlowTheme.of(context).alternate,
           automaticallyImplyLeading: false,
           title: Column(
             mainAxisSize: MainAxisSize.max,
@@ -84,7 +80,8 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
                     ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                 child: Text(
                   FFLocalizations.of(context).getText(
                     'xr0vzre2' /* Selecciona un negocio para com... */,
@@ -99,16 +96,17 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 12.0, 4.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 12.0, 4.0),
               child: FlutterFlowIconButton(
                 borderColor: FlutterFlowTheme.of(context).alternate,
                 borderRadius: 12.0,
                 borderWidth: 1.0,
                 buttonSize: 44.0,
-                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                fillColor: FlutterFlowTheme.of(context).secondary,
                 icon: Icon(
                   Icons.close_rounded,
-                  color: FlutterFlowTheme.of(context).secondaryText,
+                  color: FlutterFlowTheme.of(context).alternate,
                   size: 24.0,
                 ),
                 onPressed: () async {
@@ -127,7 +125,8 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -149,48 +148,19 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 12.0, 0.0, 0.0),
-                        child: Text(
-                          ((valueOrDefault<int>(
-                                    _model.friendsList.length,
-                                    0,
-                                  ) -
-                                  1))
-                              .toString(),
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Lexend',
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(2.0, 12.0, 0.0, 0.0),
-                        child: Text(
-                          FFLocalizations.of(context).getText(
-                            '66k708fo' /* Selected */,
-                          ),
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Lexend',
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
                 Expanded(
                   child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 12.0, 0.0, 0.0),
                     child:
                         PagedListView<DocumentSnapshot<Object?>?, UsersRecord>(
                       pagingController: _model.setListViewController(
-                        UsersRecord.collection.orderBy('display_name'),
+                        UsersRecord.collection
+                            .where('role', isEqualTo: 'enterprise')
+                            .orderBy('display_name'),
                       ),
                       padding: const EdgeInsets.fromLTRB(
                         0,
@@ -201,24 +171,24 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
                       reverse: false,
                       scrollDirection: Axis.vertical,
                       builderDelegate: PagedChildBuilderDelegate<UsersRecord>(
-                        // Customize what your widget looks like when it's loading the first page.
                         firstPageProgressIndicatorBuilder: (_) => Center(
                           child: SizedBox(
                             width: 40.0,
                             height: 40.0,
                             child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.of(context).primary,
+                              color:
+                                  FlutterFlowTheme.of(context).darkBackground,
                               size: 40.0,
                             ),
                           ),
                         ),
-                        // Customize what your widget looks like when it's loading another page.
                         newPageProgressIndicatorBuilder: (_) => Center(
                           child: SizedBox(
                             width: 40.0,
                             height: 40.0,
                             child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.of(context).primary,
+                              color:
+                                  FlutterFlowTheme.of(context).darkBackground,
                               size: 40.0,
                             ),
                           ),
@@ -227,165 +197,86 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
                             EmptyStateSimpleWidget(
                           icon: Icon(
                             Icons.groups_outlined,
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: FlutterFlowTheme.of(context).darkBackground,
                             size: 90.0,
                           ),
-                          title: 'No Friends',
-                          body: 'No users exist to create a chat with.',
+                          title: 'Ningun Comercio Encontrado',
+                          body:
+                              'No se encontraron comercios en la base de datos.',
                         ),
                         itemBuilder: (context, _, listViewIndex) {
                           final listViewUsersRecord = _model
                               .listViewPagingController!
                               .itemList![listViewIndex];
-                          return Visibility(
-                            visible: listViewUsersRecord.reference !=
-                                currentUserReference,
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 16.0, 8.0),
-                              child: Container(
-                                width: 100.0,
-                                height: 70.0,
-                                decoration: BoxDecoration(
-                                  color: _model.friendsList.contains(
-                                          listViewUsersRecord.reference)
-                                      ? FlutterFlowTheme.of(context).accent1
+                          return Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 8.0),
+                            child: Container(
+                              width: 100.0,
+                              height: 70.0,
+                              decoration: BoxDecoration(
+                                color: selectedUser ==
+                                        listViewUsersRecord.reference
+                                    ? FlutterFlowTheme.of(context).accent1
+                                    : FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                borderRadius: BorderRadius.circular(12.0),
+                                border: Border.all(
+                                  color: selectedUser ==
+                                          listViewUsersRecord.reference
+                                      ? FlutterFlowTheme.of(context)
+                                          .darkBackground
                                       : FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(
-                                    color: _model.friendsList.contains(
-                                            listViewUsersRecord.reference)
-                                        ? FlutterFlowTheme.of(context).primary
-                                        : FlutterFlowTheme.of(context)
-                                            .alternate,
-                                    width: 1.0,
-                                  ),
+                                          .darkBackground,
+                                  width: 1.0,
                                 ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          12.0, 0.0, 0.0, 0.0),
-                                      child: Container(
-                                        width: 44.0,
-                                        height: 44.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .accent1,
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                          border: Border.all(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 2.0,
-                                          ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: RadioListTile<DocumentReference?>(
+                                      value: listViewUsersRecord.reference,
+                                      groupValue: selectedUser,
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          selectedUser = newValue;
+                                        });
+                                      },
+                                      title: Text(
+                                        valueOrDefault<String>(
+                                          listViewUsersRecord.displayName,
+                                          'Ghost User',
                                         ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(2.0),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            child: CachedNetworkImage(
-                                              fadeInDuration:
-                                                  const Duration(milliseconds: 200),
-                                              fadeOutDuration:
-                                                  const Duration(milliseconds: 200),
-                                              imageUrl:
-                                                  listViewUsersRecord.photoUrl,
-                                              width: 44.0,
-                                              height: 44.0,
-                                              fit: BoxFit.cover,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              letterSpacing: 0.0,
+                                              lineHeight: 2.0,
                                             ),
-                                          ),
-                                        ),
                                       ),
-                                    ),
-                                    Expanded(
-                                      child: Theme(
-                                        data: ThemeData(
-                                          unselectedWidgetColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondaryText,
+                                      subtitle: Text(
+                                        valueOrDefault<String>(
+                                          listViewUsersRecord.email,
+                                          'casper@ghost.io',
                                         ),
-                                        child: CheckboxListTile(
-                                          value:
-                                              _model.checkboxListTileValueMap[
-                                                      listViewUsersRecord] ??=
-                                                  _model.friendsList.contains(
-                                                          listViewUsersRecord
-                                                              .reference) ==
-                                                      true,
-                                          onChanged: (newValue) async {
-                                            setState(() =>
-                                                _model.checkboxListTileValueMap[
-                                                        listViewUsersRecord] =
-                                                    newValue!);
-                                            if (newValue!) {
-                                              // addUser
-                                              _model.addToFriendsList(
-                                                  listViewUsersRecord
-                                                      .reference);
-                                              setState(() {});
-                                            } else {
-                                              // removeUsser
-                                              _model.addToFriendsList(
-                                                  listViewUsersRecord
-                                                      .reference);
-                                              setState(() {});
-                                            }
-                                          },
-                                          title: Text(
-                                            valueOrDefault<String>(
-                                              listViewUsersRecord.displayName,
-                                              'Ghost User',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyLarge
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  letterSpacing: 0.0,
-                                                  lineHeight: 2.0,
-                                                ),
-                                          ),
-                                          subtitle: Text(
-                                            valueOrDefault<String>(
-                                              listViewUsersRecord.email,
-                                              'casper@ghost.io',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelSmall
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelSmall
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
                                                       .secondary,
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                          tileColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondaryBackground,
-                                          activeColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
-                                          checkColor: Colors.white,
-                                          dense: false,
-                                          controlAffinity:
-                                              ListTileControlAffinity.trailing,
-                                          contentPadding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  12.0, 0.0, 8.0, 0.0),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                        ),
+                                              letterSpacing: 0.0,
+                                            ),
                                       ),
+                                      activeColor: FlutterFlowTheme.of(context)
+                                          .darkBackground,
+                                      dense: false,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           );
@@ -404,8 +295,8 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      FlutterFlowTheme.of(context).accent4,
-                      FlutterFlowTheme.of(context).secondaryBackground
+                      FlutterFlowTheme.of(context).accent3,
+                      FlutterFlowTheme.of(context).darkBackground
                     ],
                     stops: const [0.0, 1.0],
                     begin: const AlignmentDirectional(0.0, -1.0),
@@ -414,28 +305,17 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
                 ),
                 alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      16.0, 0.0, 16.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      if (_model.friendsList.length >= 2) {
+                      if (selectedUser != null) {
                         if (widget.chatRef != null) {
                           // updateChat
-
                           await widget.chatRef!.reference.update({
-                            ...mapToFirestore(
-                              {
-                                'users': _model.friendsList,
-                              },
-                            ),
+                            'users': [currentUserReference, selectedUser],
                           });
-                          // updateChat
-                          _model.updatedChatThread = await queryChatsRecordOnce(
-                            queryBuilder: (chatsRecord) => chatsRecord.where(
-                              'group_chat_id',
-                              isEqualTo: widget.chatRef?.groupChatId,
-                            ),
-                            singleRecord: true,
-                          ).then((s) => s.firstOrNull);
+
                           if (Navigator.of(context).canPop()) {
                             context.pop();
                           }
@@ -443,52 +323,28 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
                             'chat_2_Details',
                             queryParameters: {
                               'chatRef': serializeParam(
-                                _model.updatedChatThread,
-                                ParamType.Document,
+                                widget.chatRef!.reference,
+                                ParamType.DocumentReference,
                               ),
-                            }.withoutNulls,
-                            extra: <String, dynamic>{
-                              'chatRef': _model.updatedChatThread,
                             },
                           );
                         } else {
                           // newChat
-
                           var chatsRecordReference =
                               ChatsRecord.collection.doc();
                           await chatsRecordReference.set({
                             ...createChatsRecordData(
                               userA: currentUserReference,
-                              userB: _model.friendsList[1],
+                              userB: selectedUser,
                               lastMessage: '',
                               lastMessageTime: getCurrentTimestamp,
                               lastMessageSentBy: currentUserReference,
                               groupChatId:
                                   random_data.randomInteger(1000000, 9999999),
                             ),
-                            ...mapToFirestore(
-                              {
-                                'users': _model.friendsList,
-                              },
-                            ),
+                            'users': [currentUserReference, selectedUser],
                           });
-                          _model.newChatThread =
-                              ChatsRecord.getDocumentFromData({
-                            ...createChatsRecordData(
-                              userA: currentUserReference,
-                              userB: _model.friendsList[1],
-                              lastMessage: '',
-                              lastMessageTime: getCurrentTimestamp,
-                              lastMessageSentBy: currentUserReference,
-                              groupChatId:
-                                  random_data.randomInteger(1000000, 9999999),
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'users': _model.friendsList,
-                              },
-                            ),
-                          }, chatsRecordReference);
+
                           if (Navigator.of(context).canPop()) {
                             context.pop();
                           }
@@ -496,12 +352,9 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
                             'chat_2_Details',
                             queryParameters: {
                               'chatRef': serializeParam(
-                                _model.newChatThread,
-                                ParamType.Document,
+                                chatsRecordReference,
+                                ParamType.DocumentReference,
                               ),
-                            }.withoutNulls,
-                            extra: <String, dynamic>{
-                              'chatRef': _model.newChatThread,
                             },
                           );
                         }
@@ -509,7 +362,7 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              'You must select at least one other user to start a chat.',
+                              'Debes seleccionar un usuario para iniciar el chat.',
                               style: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
@@ -520,24 +373,23 @@ class _Chat2InviteUsersWidgetState extends State<Chat2InviteUsersWidget> {
                             ),
                             duration: const Duration(milliseconds: 3000),
                             backgroundColor:
-                                FlutterFlowTheme.of(context).primary,
+                                FlutterFlowTheme.of(context).darkBackground,
                           ),
                         );
                       }
 
                       setState(() {});
                     },
-                    text: widget.chatRef != null
-                        ? 'Add to Chat'
-                        : 'Send Invites',
+                    text:
+                        widget.chatRef != null ? 'Add to Chat' : 'Empezar Chat',
                     options: FFButtonOptions(
                       width: double.infinity,
                       height: 50.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 0.0, 0.0, 0.0),
+                      iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).alternate,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Lexend',

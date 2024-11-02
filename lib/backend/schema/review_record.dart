@@ -35,6 +35,11 @@ class ReviewRecord extends FirestoreRecord {
   DateTime? get createdAt => _createdAt;
   bool hasCreatedAt() => _createdAt != null;
 
+  // "rating" field.
+  num? _rating;
+  num get rating => _rating ?? 0;
+  bool hasRating() => _rating != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -42,6 +47,7 @@ class ReviewRecord extends FirestoreRecord {
     _userId = snapshotData['user_id'] as DocumentReference?;
     _comment = snapshotData['comment'] as String?;
     _createdAt = snapshotData['created_at'] as DateTime?;
+    _rating = snapshotData['rating'] as num?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -87,6 +93,7 @@ Map<String, dynamic> createReviewRecordData({
   DocumentReference? userId,
   String? comment,
   DateTime? createdAt,
+  num? rating,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -94,6 +101,7 @@ Map<String, dynamic> createReviewRecordData({
       'user_id': userId,
       'comment': comment,
       'created_at': createdAt,
+      'rating': rating,
     }.withoutNulls,
   );
 

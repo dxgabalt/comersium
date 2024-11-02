@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-
 Future<UserCredential> facebookSignIn() async {
   if (kIsWeb) {
     FacebookAuthProvider facebookProvider = FacebookAuthProvider();
@@ -20,9 +19,16 @@ Future<UserCredential> facebookSignIn() async {
   final LoginResult loginToken = await FacebookAuth.instance.login();
   final AccessToken? result = loginToken.accessToken;
 
+  if (result == null) {
+    throw FirebaseAuthException(
+      code: 'ERROR_FACEBOOK_LOGIN_FAILED',
+      message: 'Failed to login with Facebook.',
+    );
+  }
+
   // Create a credential from the access token
   final OAuthCredential facebookAuthCredential =
-      FacebookAuthProvider.credential(result!.token);
+      FacebookAuthProvider.credential(result.token);
 
   // Once signed in, return the UserCredential
   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);

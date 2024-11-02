@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -19,9 +21,16 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  late Color _backgroundColor = const Color(0xFFF8F8F8); // Color predeterminado
+  Timer? _timer;
+
   @override
   void initState() {
     super.initState();
+
+    _updateColors();
+    _startTimer();
+
     _model = createModel(context, () => LoginPageModel());
 
     _model.emailAddressLoginTextController ??= TextEditingController();
@@ -33,8 +42,50 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
+      _updateColors(); // Actualizar los colores cada minuto
+    });
+  }
+
+  void _updateColors() {
+    final currentHour = DateTime.now().toLocal().hour;
+
+    setState(() {
+      if (currentHour >= 6 && currentHour < 12) {
+        // Mañana
+        _backgroundColor = const Color.fromARGB(255, 29, 72, 92);
+      } else if (currentHour >= 12 && currentHour < 18) {
+        // Tarde
+        _backgroundColor = const Color.fromARGB(255, 95, 41, 73);
+      } else {
+        // Noche
+        _backgroundColor = const Color.fromARGB(255, 58, 31, 77);
+      }
+    });
+  }
+
+  Future<void> _handleLoginSuccess(user) async {
+    final userDoc = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(user.uid)
+        .get();
+
+    final interestList = userDoc.data()?['interestList'] as List<dynamic>?;
+
+    if (interestList != null && interestList.isNotEmpty) {
+      // Redirigir a la pantalla principal si interestList no está vacío
+      context.pushNamedAuth('LogoWall', context.mounted);
+    } else {
+      // Redirigir a la pantalla de intereses si interestList está vacío
+      context.pushNamedAuth('Interests', context.mounted);
+    }
+  }
+
   @override
   void dispose() {
+    _model.dispose();
+    _timer?.cancel();
     _model.dispose();
 
     super.dispose();
@@ -44,7 +95,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primary,
+      backgroundColor: _backgroundColor,
       body: SingleChildScrollView(
         primary: false,
         child: Column(
@@ -379,8 +430,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         }
 
                                         if (currentUserEmailVerified == true) {
-                                          context.pushNamedAuth(
-                                              'LogoWall', context.mounted);
+                                          await _handleLoginSuccess(user);
                                         } else {
                                           context.pushNamedAuth(
                                               'waitingPage', context.mounted);
@@ -504,41 +554,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 28.0, 0.0, 0.0),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              context.pushNamed('RegisterBusiness');
-                            },
-                            text: FFLocalizations.of(context).getText(
-                              '1zqiw31h' /* Registrar Negocio */,
-                            ),
-                            options: FFButtonOptions(
-                              width: 200.0,
-                              height: 50.0,
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context).secondary,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    fontFamily: 'Lexend',
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    fontSize: 20.0,
-                                    letterSpacing: 0.0,
-                                  ),
-                              elevation: 3.0,
-                              borderSide: const BorderSide(
-                                color: Colors.transparent,
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 25.0, 16.0, 16.0),
                           child: FFButtonWidget(
                             onPressed: () async {
@@ -549,8 +564,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 return;
                               }
 
-                              context.pushNamedAuth(
-                                  'LogoWall', context.mounted);
+                              await _handleLoginSuccess(user);
                             },
                             text: FFLocalizations.of(context).getText(
                               'tggm6god' /* Sign up with Google */,
@@ -599,7 +613,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 return;
                               }
 
-                              context.goNamedAuth('LogoWall', context.mounted);
+                              await _handleLoginSuccess(user);
                             },
                             text: FFLocalizations.of(context).getText(
                               'cpoot9qw' /* Sign up with Facebook */,
