@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-43:/values-watch-v20/values-watch-v20.xml",
+            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-49:/values-watch-v20/values-watch-v20.xml",
             "map": [
                 {
                     "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\975b623934b0db5c91ba9b31d01a745e\\transformed\\jetified-play-services-auth-20.7.0\\res\\values-watch-v20\\values.xml",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\e312278727386ae66cf9d63a301d1443\\transformed\\appcompat-1.2.0\\res\\values-watch-v20\\values-watch-v20.xml",
+                    "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\69d16d79bd405092c210bb3b96036c9e\\transformed\\appcompat-1.5.1\\res\\values-watch-v20\\values-watch-v20.xml",
                     "from": {
                         "startLines": "2,5,8",
                         "startColumns": "4,4,4",

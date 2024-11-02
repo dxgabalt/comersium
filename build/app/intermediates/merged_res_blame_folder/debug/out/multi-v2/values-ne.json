@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-47:/values-ne/values-ne.xml",
+            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-49:/values-ne/values-ne.xml",
             "map": [
                 {
                     "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\d5c1fe1852f8762bb0174456e85a6223\\transformed\\core-1.13.1\\res\\values-ne\\values-ne.xml",

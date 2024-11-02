@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-47:/values-tl/values-tl.xml",
+            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-49:/values-tl/values-tl.xml",
             "map": [
                 {
                     "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\e6f6bc93861f04c0e6ce6ac9cd1e5ecd\\transformed\\jetified-play-services-base-18.1.0\\res\\values-tl\\values.xml",

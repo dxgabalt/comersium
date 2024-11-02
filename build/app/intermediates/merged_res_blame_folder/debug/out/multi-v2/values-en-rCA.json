@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-47:/values-en-rCA/values-en-rCA.xml",
+            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-49:/values-en-rCA/values-en-rCA.xml",
             "map": [
                 {
                     "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\d5c1fe1852f8762bb0174456e85a6223\\transformed\\core-1.13.1\\res\\values-en-rCA\\values-en-rCA.xml",

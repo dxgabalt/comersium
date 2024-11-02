@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-47:/values-sv/values-sv.xml",
+            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-49:/values-sv/values-sv.xml",
             "map": [
                 {
                     "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\3c528efd9d0ac5b7602bed0fa8407f01\\transformed\\jetified-facebook-login-12.2.0\\res\\values-sv\\values-sv.xml",

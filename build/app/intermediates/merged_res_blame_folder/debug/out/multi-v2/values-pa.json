@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-47:/values-pa/values-pa.xml",
+            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-49:/values-pa/values-pa.xml",
             "map": [
                 {
                     "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\5524c255440b061ed658461ecdcc6912\\transformed\\jetified-exoplayer-core-2.18.7\\res\\values-pa\\values-pa.xml",
