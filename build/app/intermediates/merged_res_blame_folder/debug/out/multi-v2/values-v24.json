@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-43:/values-v24/values-v24.xml",
+            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-47:/values-v24/values-v24.xml",
             "map": [
                 {
                     "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\4f0f9218535a557496d9cdb52b1267c5\\transformed\\media-1.0.0\\res\\values-v24\\values-v24.xml",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\e312278727386ae66cf9d63a301d1443\\transformed\\appcompat-1.2.0\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\69d16d79bd405092c210bb3b96036c9e\\transformed\\appcompat-1.5.1\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

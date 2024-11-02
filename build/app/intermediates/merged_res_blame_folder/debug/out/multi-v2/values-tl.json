@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-43:/values-tl/values-tl.xml",
+            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-47:/values-tl/values-tl.xml",
             "map": [
                 {
                     "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\e6f6bc93861f04c0e6ce6ac9cd1e5ecd\\transformed\\jetified-play-services-base-18.1.0\\res\\values-tl\\values.xml",
@@ -106,7 +106,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\e312278727386ae66cf9d63a301d1443\\transformed\\appcompat-1.2.0\\res\\values-tl\\values-tl.xml",
+                    "source": "C:\\Users\\brian\\.gradle\\caches\\transforms-3\\69d16d79bd405092c210bb3b96036c9e\\transformed\\appcompat-1.5.1\\res\\values-tl\\values-tl.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

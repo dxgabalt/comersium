@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-43:/values-night-v31/values-night-v31.xml",
+            "outputFile": "com.globalbds.comersium.app-mergeDebugResources-47:/values-night-v31/values-night-v31.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\brian\\OneDrive\\Documentos\\Proyectos\\Mobile\\comersium\\android\\app\\src\\main\\res\\values-night-v31\\styles.xml",
+                    "source": "C:\\Users\\brian\\OneDrive\\Documentos\\Proyectos\\Mobile\\a\\comersiumTest\\android\\app\\src\\main\\res\\values-night-v31\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
